@@ -1,0 +1,71 @@
+import random
+#spaces ommited for now until I fix
+#will work on making making user re-entering input if not a valid letter
+office_characters = ["Michael","Phyllis","Jim","Pam","Toby","Dwight","Angela",
+"Jan","Carol","Holly","Oscar","Stanley","Kevin","Darryl","Meredith",
+"Creed","Roy","Ryan","Kelly","Andy","DateMike","PrisonMike",
+"Gabe","Erin","David","Bob","Isabel","Helene",]
+answer = random.choice(office_characters)
+print("This is a game of hangman. Guess the team name of an office character team.")
+print("\nStart by guessing letters and then guess the final answer.")
+print("You have six incorrect guesses before you lose.")
+print("Spaces not included.")
+count = 0
+gameOn = True
+myList = []
+for i in range(len(answer)):
+    myList = myList + ['_']
+print("The team name is ",len(answer)," letters long")
+print(myList)
+while count < 7 and gameOn==True:
+    choice = input("Would you like to guess a letter or the name (type 1 or 2): ")
+    while choice != "1" and choice != "2":
+        choice = input("Invalid Input. Would you like to guess a letter or the name (type 1 or 2)")
+
+    if int(choice) == 1:
+        letter = input("Guess a letter: ")
+        count1 = 0
+        if 97<= ord(letter) <= 122:
+            pos = 0
+            for i in answer:
+                if letter == i or chr(ord(letter)-32) == i:
+                    print("The letter", letter, "is in the team name")
+                    if chr(ord(letter)+32) == i:
+                        letter = chr(ord(letter)-32)
+                    print("\n At position ",pos+1)
+                    count1 = count1 + 1
+                    myList[pos] = letter
+                    print (myList)
+                pos = pos + 1
+                
+                    
+            if count1 == 0:
+                print("Not a correct guess!")
+                count = count + 1
+                
+        
+        elif 65<= ord(letter) <= 90:
+            pos = 1
+            for i in answer:
+                if letter == i or chr(ord(letter)+32) == i:
+                    print("The letter", letter, "is in the team name")
+                    if chr(ord(letter)-32) == i:
+                        letter = chr(ord(letter)-32) 
+                    print("\n At position ",pos+1)
+                    count1 = count1 + 1
+                    myList[pos] = letter
+                    print(myList)
+                pos = pos + 1
+            if count1 == 0:
+                print("Not a correct guess!")
+                count = count + 1
+    else:
+        team = input("Guess full team name, first letter capital: ")
+        if team == answer:
+            print("The guess of",answer, "is correct!")
+            gameOn = False
+        else:
+            print("That is not the correct guess!")
+            count = count + 1
+if count>=7:
+    print("Sorry you lose! The correct answer was", answer)
